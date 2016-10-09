@@ -10,18 +10,21 @@ const brains = [
 ]
 
 const board = Board([player1, player2], [
-    [PlayablePlace(player1, []), PlayablePlace(player1, []), Place(), Place(), Place(), PlayablePlace(player2, []), PlayablePlace(player2)],
-    [PlayablePlace(player1, []), Place(), Place(), Place(), Place(), Place(), Place()],
-    [Place(), Place(), Place(), Place(), Place(), Place(), Place()],
-    [Place(), Place(), Place(), Place(), Place(), Place(), Place()],
-    [Place(), Place(), Place(), Place(), Place(), Place(), Place()],
-    [Place(), Place(), Place(), Place(), Place(), Place(), Place()],
-    [Place(), Place(), Place(), Place(), Place(), Place(), Place()],
+    [OwnedPlace(player1, []), OwnedPlace(player1, []), PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), OwnedPlace(player2, []), OwnedPlace(player2, [])],
+    [OwnedPlace(player1, []), PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([])],
+    [PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([])],
+    [PlayablePlace([]), Place(), PlayablePlace([]), PlayablePlace([]), Place(), Place(), PlayablePlace([])],
+    [PlayablePlace([]), Place(), Place(), Place(), Place(), Place(), PlayablePlace([])],
+    [PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), Place(), PlayablePlace([]), PlayablePlace([]), PlayablePlace([])],
+    [PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([])],
 ])
 
 window.onload = () => setTimeout(() => {
     const boardEl = document.getElementById('board')
-    const drawBoardToEl = drawBoard('#555', boardEl)
+    const drawBoardToEl = drawBoard(50, 48, '#555', boardEl)
+
+    boardEl.width = window.innerWidth
+    boardEl.height = window.innerHeight
 
     // draw the initial board
     drawBoardToEl(board)
@@ -31,13 +34,97 @@ window.onload = () => setTimeout(() => {
         .fork()
 }, 1)
 
-const drawBoard = curry((emptyColor, el, board) => {
-    console.log('tick')
+const drawBoard = curry((boardPadding, placeSize, emptyColor, el, board) => {
     const ctx = el.getContext('2d')
 
     // clear
     ctx.clearRect(0, 0, el.width, el.height)
+
+    for(let i = 0; i < board.places.length; i++) {
+        for(let j = 0; j < board.places[i].length; j++) {
+            drawPlace(ctx, boardPadding, placeSize, emptyColor, i, j, board.places[i][j])
+        }
+    }
 })
+
+function drawPlace(ctx, boardPadding, placeSize, emptyColor, i, j, place) {
+    // not playable
+    if(!place.things) return
+
+    // no owner
+    if(!place.owner) drawHex(ctx, boardPadding, placeSize, i, j, emptyColor)
+
+    // owner
+    if(place.owner) drawHex(ctx, boardPadding, placeSize, i, j, place.owner.color)
+}
+
+/*
+ *      p1 +---+ p2
+ *        /     \
+ *    p6 +       + p3
+ *        \     /
+ *      p5 +---+ p4
+ *
+ * It's a good idea for placeSize to be evenly divisible by 2 and 4
+ */
+function drawHex(ctx, boardPadding, placeSize, i, j, color) {
+    const placeSizeDiv4 = placeSize / 4
+    const placeSizeDiv2 = placeSize / 2
+    const placeSizeThreeQuarters = placeSizeDiv2 + placeSizeDiv4
+
+    const staggeredOffsetX = i % 2 === 0
+            ? 0
+            : placeSizeThreeQuarters
+
+    const origin = [
+        boardPadding + (placeSize * j) + (placeSizeDiv2 * j) + staggeredOffsetX,
+        boardPadding + (placeSize * i) - (placeSizeDiv2 * i),
+    ]
+
+    const p1 = [
+        origin[0] + placeSizeDiv4,
+        origin[1],
+    ]
+
+    const p2 = [
+        origin[0] + placeSizeThreeQuarters,
+        origin[1],
+    ]
+
+    const p3 = [
+        origin[0] + placeSize,
+        origin[1] + placeSizeDiv2,
+    ]
+
+    const p4 = [
+        p2[0],
+        origin[1] + placeSize,
+    ]
+
+    const p5 = [
+        p1[0],
+        p4[1],
+    ]
+
+    const p6 = [
+        origin[0],
+        p3[1],
+    ]
+
+    const moveTo = p => ctx.moveTo(p[0], p[1])
+    const lineTo = p => ctx.lineTo(p[0], p[1])
+
+    ctx.fillStyle = color
+    ctx.beginPath()
+    moveTo(p1)
+    lineTo(p2)
+    lineTo(p3)
+    lineTo(p4)
+    lineTo(p5)
+    lineTo(p6)
+    ctx.closePath()
+    ctx.fill()
+}
 
 function Board(players, places) {
     return {players, places}
@@ -47,11 +134,17 @@ function Place() {
     return {}
 }
 
-function PlayablePlace(owner, things) {
+function PlayablePlace(things) {
     return {
         ...Place(),
-        owner,
         things,
+    }
+}
+
+function OwnedPlace(owner, things) {
+    return {
+        ...PlayablePlace(things),
+        owner,
     }
 }
 
