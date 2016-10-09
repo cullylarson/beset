@@ -121,9 +121,7 @@ function gameOver(board) {
 function playTurn(brains, board, tick) {
     return brains
         .reduce(
-            (accTask, brain) => {
-                return accTask.chain(board => playBrain(brain, board, tick))
-            },
+            (accTask, brain) => accTask.chain(board => playBrain(brain, board, tick)),
             Task.of(board)
         )
 }
