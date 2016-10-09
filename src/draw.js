@@ -1,6 +1,7 @@
 import {curry} from 'ramda'
 import Maybe from 'data.maybe'
 
+// drawBoard : Integer -> Integer -> String -> Dom -> Board -> [Side Effects]
 export const drawBoard = curry((boardPadding, placeSize, emptyColor, el, board) => {
     console.log('drawing board')
     const ctx = el.getContext('2d')
@@ -15,6 +16,7 @@ export const drawBoard = curry((boardPadding, placeSize, emptyColor, el, board) 
     }
 })
 
+// drawPlace : RenderingContext -> Integer -> Integer -> String -> HexPos -> Place -> [Side Effects]
 function drawPlace(ctx, boardPadding, placeSize, emptyColor, hexPos, place) {
     // not playable
     if(!place.things) return
@@ -26,6 +28,7 @@ function drawPlace(ctx, boardPadding, placeSize, emptyColor, hexPos, place) {
     if(place.owner) drawHex(ctx, boardPadding, placeSize, hexPos, place.owner.color)
 }
 
+// drawHex : RenderingContext -> Integer -> Integer -> HexPos -> String -> [Side Effects]
 function drawHex(ctx, boardPadding, placeSize, hexPos, color) {
     const coords = getCoordsForHex(boardPadding, placeSize, hexPos)
 
@@ -45,6 +48,8 @@ function drawHex(ctx, boardPadding, placeSize, hexPos, color) {
 }
 
 /*
+ * getCoordsForHex : Integer -> Integer -> HexPos -> Object(p1 Point, p2 Point, p3 Point, p4 Point, p5 Point, p6 Point)
+ *
  *      p1 +---+ p2
  *        /     \
  *    p6 +       + p3
@@ -94,6 +99,8 @@ function getCoordsForHex(boardPadding, placeSize, hexPos) {
 }
 
 /*
+ * pixelIsInHex : Intger -> Integer -> HexPos -> Point -> Boolean
+ *
  *          p1 +----+ p2
  *            /|    |\
  *           / |    | \
@@ -192,6 +199,7 @@ function pixelIsInHex(boardPadding, placeSize, hexPos, pixel) {
     return false
 }
 
+// getHexByPixel : Integer -> Interger -> Board -> Point -> Maybe(HexPos)
 export const getHexByPixel = curry((boardPadding, placeSize, board, pixel) => {
     for(let i = 0; i < board.places.length; i++) {
         for(let j = 0; j < board.places[i].length; j++) {
@@ -203,10 +211,12 @@ export const getHexByPixel = curry((boardPadding, placeSize, board, pixel) => {
     return Maybe.Nothing()
 })
 
+// Point : Integer -> Integer -> Object(x Integer, y Integer)
 export function Point(x, y) {
     return {x, y}
 }
 
+// HexPos :: Integer, Integer, Object(i Integer, j Integer)
 function HexPos(i, j) {
     return {i, j}
 }

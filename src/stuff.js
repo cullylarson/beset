@@ -48,6 +48,7 @@ export function Player(name, gold, color) {
     return {name, gold, color}
 }
 
+// Brain -> Function(Board) -> Object(play Function(Board))
 export function Brain(play) {
     return {play}
 }
