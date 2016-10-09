@@ -216,7 +216,7 @@ export function Point(x, y) {
     return {x, y}
 }
 
-// HexPos :: Integer, Integer, Object(i Integer, j Integer)
+// HexPos : Integer, Integer, Object(i Integer, j Integer)
 function HexPos(i, j) {
     return {i, j}
 }

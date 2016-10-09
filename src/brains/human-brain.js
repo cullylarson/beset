@@ -3,7 +3,7 @@ import {Brain} from '../stuff'
 import {Point} from '../draw'
 import {PlayResult} from '../play'
 
-// HumanBrain -> Dom -> Player -> Function(Board, Point) -> Object(play Function(Board))
+// HumanBrain : Dom -> Player -> Function(Board, Point) -> Object(play Function(Board))
 export function HumanBrain(boardEl, owner, getHexByPixel) {
     const play = (board) => {
         return new Task((rej, res) => {
