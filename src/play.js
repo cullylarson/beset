@@ -61,6 +61,6 @@ function playBrain(brain, board, tick) {
 
             return result.isDone()
                 ? Task.of(result.board)
-                : playBrain(brain, board, tick)
+                : playBrain(brain, result.board, tick)
         })
 }

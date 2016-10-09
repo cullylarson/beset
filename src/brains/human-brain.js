@@ -1,7 +1,8 @@
 import Task from 'data.task'
-import {Brain} from '../stuff'
+import {Brain, takeOwnership} from '../stuff'
 import {Point} from '../draw'
 import {PlayResult} from '../play'
+import {clone} from 'ramda'
 
 // HumanBrain : Dom -> Player -> Function (Board -> Point -> HexPos) -> Object(play Function(Board))
 export function HumanBrain(boardEl, owner, getHexByPixel) {
@@ -13,9 +14,11 @@ export function HumanBrain(boardEl, owner, getHexByPixel) {
                 const pixelY = e.clientY - rect.top
                 getHexByPixel(board, Point(pixelX, pixelY))
                     .map(hex => {
+                        const newBoard = clone(board)
+                        newBoard.places[hex.i][hex.j] = takeOwnership(newBoard.places[hex.i][hex.j], owner)
                         console.log('clicked in hex', hex)
                         boardEl.removeEventListener('click', onClick)
-                        res(PlayResult.NotDone(board))
+                        res(PlayResult.NotDone(newBoard))
                     })
             }
 

@@ -20,6 +20,13 @@ export function OwnedPlace(owner, things) {
     }
 }
 
+export function takeOwnership(place, owner) {
+    return {
+        ...place,
+        owner,
+    }
+}
+
 export function Blight(productivity) {
     return {productivity}
 }
