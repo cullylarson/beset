@@ -54,6 +54,9 @@ function playBrain(brain, board, tick) {
     // this is basically a 'while' loop
     return brain.play(board)
         .chain(result => {
+            // notice that this is not necessarily called at the end of a brain's turn. it could happen
+            // after just one move (e.g. if a move takes place and the board needs to be redrawn before
+            // another move happens)
             tick(result.board)
 
             return result.isDone()
