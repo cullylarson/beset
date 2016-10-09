@@ -99,7 +99,7 @@ function getCoordsForHex(boardPadding, placeSize, hexPos) {
 }
 
 /*
- * pixelIsInHex : Intger -> Integer -> HexPos -> Point -> Boolean
+ * pixelIsInHex : Integer -> Integer -> HexPos -> Point -> Boolean
  *
  *          p1 +----+ p2
  *            /|    |\

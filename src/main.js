@@ -20,6 +20,8 @@ window.onload = () => setTimeout(() => {
     const boardPadding = 50
     const placeSize = 48
     const boardEl = document.getElementById('board')
+
+    // drawBoardToEl : Board -> [Side Effects]
     const drawBoardToEl = drawBoard(boardPadding, placeSize, '#555', boardEl)
 
     boardEl.width = window.innerWidth
@@ -28,6 +30,7 @@ window.onload = () => setTimeout(() => {
     // draw the initial board
     drawBoardToEl(board)
 
+    // getHexByPixelForHumanBrain : Board -> Point -> HexPos
     const getHexByPixelForHumanBrain = getHexByPixel(boardPadding, placeSize)
 
     const brains = [
