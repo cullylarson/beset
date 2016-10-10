@@ -1,7 +1,7 @@
 import Task from 'data.task'
-import {Brain, takeOwnership} from '../stuff'
-import {Point} from '../draw'
-import {PlayResult} from '../play'
+import {Brain, takeOwnership} from 'app/stuff'
+import {Point} from 'app/draw'
+import {PlayResult} from 'app/play'
 import {clone} from 'ramda'
 
 // HumanBrain : Dom -> Player -> Function (Board -> Point -> HexPos) -> Object(play Function(Board))

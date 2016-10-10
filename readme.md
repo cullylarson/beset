@@ -6,12 +6,6 @@
 
 ```
 $ git clone git@github.com:cullylarson/beset.git
-$ gulp
+$ npm run build
 $ open index.html
-```
-
-## Production Build
-
-```
-$ gulp --production
 ```

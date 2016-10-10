@@ -1,7 +1,7 @@
-import {drawBoard, getHexByPixel, getCanvasSizeForBoard} from './draw'
-import {playGame} from './play'
-import {HumanBrain} from './brains/human-brain'
-import {Place, OwnedPlace, PlayablePlace, Player, Board} from './stuff'
+import {drawBoard, getHexByPixel, getCanvasSizeForBoard} from 'app/draw'
+import {playGame} from 'app/play'
+import {HumanBrain} from 'app/brains/human-brain'
+import {Place, OwnedPlace, PlayablePlace, Player, Board} from 'app/stuff'
 
 const player1 = Player('Player 1', 10, 'goldenrod')
 const player2 = Player('Player 2', 10, 'tomato')

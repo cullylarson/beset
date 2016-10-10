@@ -8,7 +8,16 @@
   },
   "author": "Cully Larson <cully.larson@gmail.com>",
   "homepage": "https://github.com/cullylarson/beset",
-  "scripts": {},
+  "scripts": {
+      "build": "npm run css:build && npm run js:build",
+      "dev": "npm run css:dev && npm run js:dev",
+      "css:build": "gulp css --production",
+      "css:dev": "gulp css",
+      "css:watch": "gulp watch",
+      "js:build": "NODE_ENV=production webpack",
+      "js:dev": "webpack",
+      "js:watch": "webpack --progress --colors --watch"
+  },
   "dependencies": {
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",
