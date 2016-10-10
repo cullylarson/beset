@@ -9,6 +9,8 @@
                 setTimeout(function() {
                     Beset({
                         boardEl: document.getElementById('board'),
+                        turnOverEl: document.querySelector('.control-turn-over'),
+                        whosTurnEl: document.querySelector('.indicator-whos-turn'),
                     })
                 }, 1)
             }
@@ -16,8 +18,13 @@
     </head>
 
     <body>
-        <canvas id='board'>
-        </canvas>
+        <div id='controls'>
+            <button class='control-turn-over'>Done</button>
+            <div class='indicator-whos-turn'></div>
+        </div>
+        <div id='board-container'>
+            <canvas id='board'></canvas>
+        </div>
     </body>
 
 </html>

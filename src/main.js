@@ -16,7 +16,7 @@ const board = Board([player1, player2], [
     [PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([])],
 ])
 
-window.Beset = ({boardEl}) => {
+window.Beset = ({boardEl, turnOverEl}) => {
     const boardPadding = 50
     const placeSize = 48
 
@@ -35,8 +35,8 @@ window.Beset = ({boardEl}) => {
     const getHexByPixelForHumanBrain = getHexByPixel(boardPadding, placeSize)
 
     const brains = [
-        HumanBrain(boardEl, player1, getHexByPixelForHumanBrain),
-        HumanBrain(boardEl, player2, getHexByPixelForHumanBrain),
+        HumanBrain(boardEl, turnOverEl, player1, getHexByPixelForHumanBrain),
+        HumanBrain(boardEl, turnOverEl, player2, getHexByPixelForHumanBrain),
     ]
 
     // start the game, redraw on every 'tick'

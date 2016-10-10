@@ -1,8 +1,35 @@
+$board-bg: #ccc;
+
 body {
     padding: 0;
     margin: 0;
 }
 
 #board {
-    background: #ccc;
+    background: $board-bg;
+}
+
+#board-container {
+    background: $board-bg;
+    height: 100%;
+    width: 100%;
+}
+
+#controls {
+    background: #333;
+    padding: 10px 20px;
+}
+
+.control-turn-over {
+    padding: 10px;
+    background: #1F9799;
+    border: 0;
+    font-size: 18px;
+    user-select: none;
+    color: #444;
+    cursor: pointer;
+
+    &:hover {
+        background: #2EE2E5;
+    }
 }
