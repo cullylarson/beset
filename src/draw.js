@@ -47,6 +47,19 @@ function drawHex(ctx, boardPadding, placeSize, hexPos, color) {
     ctx.fill()
 }
 
+export function getCanvasSizeForBoard(board, boardPadding, placeSize) {
+    const numRows = board.places.length
+    const numCols = board.places[0].length
+
+    const placeSizeDiv4 = placeSize / 4
+    const placeSizeDiv2 = placeSize / 2
+
+    const width = (2 * boardPadding) + (numCols * placeSize) + (numCols * placeSizeDiv2) + placeSizeDiv4
+    const height = (2 * boardPadding) + ((numRows + 1) * placeSize / 2)
+
+    return Size(width, height)
+}
+
 /*
  * getCoordsForHex : Integer -> Integer -> HexPos -> Object(p1 Point, p2 Point, p3 Point, p4 Point, p5 Point, p6 Point)
  *
@@ -214,6 +227,11 @@ export const getHexByPixel = curry((boardPadding, placeSize, board, pixel) => {
 // Point : Integer -> Integer -> Object(x Integer, y Integer)
 export function Point(x, y) {
     return {x, y}
+}
+
+// Size : Integer -> Integer -> Object(w Integer, h Integer)
+function Size(w, h) {
+    return {w, h}
 }
 
 // HexPos : Integer, Integer, Object(i Integer, j Integer)

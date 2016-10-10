@@ -32,7 +32,7 @@ gulp.task('js', taskJs(settings.jsEntry, settings.jsDistDir, settings.jsDistFile
 
 gulp.task('watch', ['js', 'css'], () => {
     gulp.watch(settings.jsGlob, ['js'])
-    gulp.watch(settings.csssGlob, ['css'])
+    gulp.watch(settings.cssGlob, ['css'])
 })
 
 gulp.task('default', ['js', 'css'])

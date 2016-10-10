@@ -1,7 +1,18 @@
 <html>
     <head>
+        <title>beset</title>
         <script type='text/javascript' src='build/js/app.js'></script>
         <link rel='stylesheet' type='text/css' href='build/css/main.css'>
+
+        <script>
+            window.onload = function() {
+                setTimeout(function() {
+                    Beset({
+                        boardEl: document.getElementById('board'),
+                    })
+                }, 1)
+            }
+        </script>
     </head>
 
     <body>

@@ -1,4 +1,4 @@
-import {drawBoard, getHexByPixel} from './draw'
+import {drawBoard, getHexByPixel, getCanvasSizeForBoard} from './draw'
 import {playGame} from './play'
 import {HumanBrain} from './brains/human-brain'
 import {Place, OwnedPlace, PlayablePlace, Player, Board} from './stuff'
@@ -16,16 +16,17 @@ const board = Board([player1, player2], [
     [PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([]), PlayablePlace([])],
 ])
 
-window.onload = () => setTimeout(() => {
+window.Beset = ({boardEl}) => {
     const boardPadding = 50
     const placeSize = 48
-    const boardEl = document.getElementById('board')
 
     // drawBoardToEl : Board -> [Side Effects]
     const drawBoardToEl = drawBoard(boardPadding, placeSize, '#555', boardEl)
 
-    boardEl.width = window.innerWidth
-    boardEl.height = window.innerHeight
+    const canvasSize = getCanvasSizeForBoard(board, boardPadding, placeSize)
+
+    boardEl.width = canvasSize.w
+    boardEl.height = canvasSize.h
 
     // draw the initial board
     drawBoardToEl(board)
@@ -41,4 +42,4 @@ window.onload = () => setTimeout(() => {
     // start the game, redraw on every 'tick'
     playGame(brains, board, drawBoardToEl)
         .fork()
-}, 1)
+}
